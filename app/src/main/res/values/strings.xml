@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Ergoen</string>
+    <string name="login_hint_username">Enter username</string>
+    <string name="login_hint_password">Emter password</string>
+</resources>
