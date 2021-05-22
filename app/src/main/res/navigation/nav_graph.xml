@@ -3,12 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/chargersListFragment">
-
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/chargersListFragment"
         android:name="com.example.ergoen.ui.chargers.ChargersListFragment"
         android:label="ChargersListFragment"
-        tools:layout="@layout/fragment_chargers_list"/>
+        tools:layout="@layout/fragment_chargers_list" >
+        <action
+            android:id="@+id/action_chargersListFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.ergoen.ui.auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_chargersListFragment"
+            app:destination="@id/chargersListFragment" />
+    </fragment>
 </navigation>

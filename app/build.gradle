@@ -38,7 +38,6 @@ android {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$androidXCore"
     implementation "androidx.appcompat:appcompat:$appCompat"
@@ -53,12 +52,16 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroid"
+
     // Retrofit and GSON
-    implementation "com.squareup.retrofit2:converter-gson:$gsonVersion"
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation "com.google.code.gson:gson:2.6.2"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion"
 
-    //DI
+    // DI
     implementation "org.koin:koin-androidx-viewmodel:$koinVersion"
     implementation "org.koin:koin-androidx-scope:$koinVersion"
 

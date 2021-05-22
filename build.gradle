@@ -34,10 +34,13 @@ ext {
     versionCode = 1
     versionName = '1'
     compileSdkVersion = 29
+
     androidXCore = '1.5.0'
     androidXLegacySupport = '1.0.0'
     appCompat = '1.2.0'
     constraintLayout = '2.0.4'
+    coroutinesCore = '1.3.5'
+    coroutinesAndroid = '1.3.3'
     gsonVersion = '2.8.1'
     junitVersion = '4.+'
     koinVersion = '2.0.1'

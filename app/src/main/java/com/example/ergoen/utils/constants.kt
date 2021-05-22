@@ -1,4 +1,4 @@
-package com.example.ergoen.ui.utils
+package com.example.ergoen.utils
 
 // Database
 const val DATA_BASE_VERSION = 1
