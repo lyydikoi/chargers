@@ -47,7 +47,7 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    fun <T> handleResponse(result: RequestResult<T>, mutableLiveData: MutableLiveData<T>? = null) {
+    private fun <T> handleResponse(result: RequestResult<T>, mutableLiveData: MutableLiveData<T>? = null) {
         when (result) {
             is RequestResult.Success -> mutableLiveData?.postValue(result.data)
             is RequestResult.Error -> {

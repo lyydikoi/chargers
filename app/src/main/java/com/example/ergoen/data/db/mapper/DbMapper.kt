@@ -10,6 +10,6 @@ interface DbMapper {
     fun mapDomainTokenToDb(tokenArg: Token): DbToken
     fun mapDbTokenToDomain(tokenArg: DbToken): Token
 
-    fun mapDomainChargerToDb(charger: Charger): DbCharger
-    fun mapDbChargerToDomain(charger: DbCharger): Charger
+    /*fun mapDomainChargerToDb(charger: Charger): DbCharger
+    fun mapDbChargerToDomain(charger: DbCharger): Charger*/
 }

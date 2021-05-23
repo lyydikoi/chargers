@@ -98,5 +98,11 @@ val appModule = module {
             get(named(DISPATCHER_IO))
         )
     }
-    single<ChargersRepository> { ChargersRepositoryImpl() }
+    single<ChargersRepository> {
+        ChargersRepositoryImpl(
+            get(),
+            get(),
+            get(named(DISPATCHER_IO))
+        )
+    }
 }

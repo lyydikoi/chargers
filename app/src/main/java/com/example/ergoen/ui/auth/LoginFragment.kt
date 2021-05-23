@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.findNavController
+import com.example.ergoen.R
 import com.example.ergoen.databinding.FragmentLoginBinding
 import com.example.ergoen.ui.auth.LoginUiModel.Action
 import com.example.ergoen.ui.auth.LoginUiModel.UiState
@@ -45,9 +47,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun initObservers() {
-        viewModel.uiState.observe(viewLifecycleOwner, {
-            updateUiState(it)
-        })
+        viewModel.uiState.observe(viewLifecycleOwner, { updateUiState(it) })
     }
 
     private fun updateUiState(uiState: UiState) {
@@ -63,6 +63,7 @@ class LoginFragment : Fragment() {
                 }
                 is UiState.Success -> {
                     progressLogin.visibility = View.GONE
+                    findNavController().navigate(R.id.chargersListFragment)
                 }
                 is UiState.FormValidation -> {
                     buttonLogin.isEnabled = uiState.isFormValid

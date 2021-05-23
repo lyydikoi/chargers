@@ -28,9 +28,9 @@ class DbMapperImpl : DbMapper {
         }
     }
 
-    override fun mapDomainChargerToDb(charger: Charger): DbCharger {
+    /*override fun mapDomainChargerToDb(charger: Charger): DbCharger {
         return with(charger) {
-            DbCharger(id)
+            DbCharger(this)
         }
     }
 
@@ -38,5 +38,5 @@ class DbMapperImpl : DbMapper {
         return with(charger) {
             Charger(id)
         }
-    }
+    }*/
 }

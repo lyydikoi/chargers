@@ -1,6 +1,7 @@
 package com.example.ergoen.ui.chargers
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +19,11 @@ class ChargersListFragment : Fragment() {
     private val adapter by lazy {
         ChargersListAdapter(object : ChargersListAdapter.Interaction {
             override fun itemClicked(position: Int) {
-                /*val selectedBird = viewModel.getSelectedCharger(position)
-                selectedBird?.let {
+                /*val selectedCharger = viewModel.getSelectedCharger(position)
+                selectedCharger?.let {
                     findNavController().navigate(
                         R.id.action_chargersListFragment_to_chargersDetailsFragment,
-                        bundleOf(BIRD_BUNDLED to it))
+                        bundleOf(CHARGER_BUNDLED to it))
                 }*/
             }
         })
@@ -39,17 +40,18 @@ class ChargersListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.ldSortedChargersList.observe(viewLifecycleOwner, Observer { chargers ->
+        /*viewModel.ldSortedChargersList.observe(viewLifecycleOwner, { chargers ->
             chargers?.let {
                 adapter.submitList(chargers)
                 adapter.notifyItemChanged(chargers.lastIndex)
             }
+        })*/
+        viewModel._isReversedSorting.observe(viewLifecycleOwner, {
+            Log.v("", "dsfsdaf")
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
-
 }
