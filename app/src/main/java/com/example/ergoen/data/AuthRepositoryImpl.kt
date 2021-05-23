@@ -21,7 +21,7 @@ class AuthRepositoryImpl(
     private val apiMapper: ApiMapper,
     private val dispatcherIO: CoroutineDispatcher
 ) : AuthRepository {
-    override suspend fun login(email: String, code: String): RequestResult<Token> =
+    override suspend fun login(email: String, password: String): RequestResult<Token> =
         withContext(dispatcherIO) {
             var token = Token.EMPTY
 
@@ -30,7 +30,7 @@ class AuthRepositoryImpl(
                     apiClient.login(
                         LoginRequest(
                             email = email,
-                            code = code
+                            code = password
                         )
                     )
                 )
@@ -49,10 +49,7 @@ class AuthRepositoryImpl(
         authDao.updateToken(dbMapper.mapDomainTokenToDb(token))
     }
 
-    override fun getToken() : Flow<Token> =
-        authDao
-            .getDistinctToken()
-            .map(dbMapper::mapDbTokenToDomain)
+    override fun getToken(): Token = dbMapper.mapDbTokenToDomain(authDao.getToken())
 }
 
 class InvalidTokenException(message: String) : Exception(message)

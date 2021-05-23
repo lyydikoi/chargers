@@ -7,16 +7,14 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
 interface AuthDao {
-    fun getDistinctToken(): Flow<DbToken> = getToken().distinctUntilChanged()
-
     @Transaction
     suspend fun updateToken(token: DbToken) {
         clearToken()
         insert(token)
     }
 
-    @Query("SELECT * from auth_table ")
-    fun getToken(): Flow<DbToken>
+    @Query("SELECT * from auth_table LIMIT(1)")
+    fun getToken(): DbToken
 
     @Query("DELETE FROM auth_table")
     suspend fun clearToken()

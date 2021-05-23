@@ -9,6 +9,8 @@ import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.db.mapper.DbMapperImpl
 import com.example.ergoen.data.network.client.ErgoenApiClient
 import com.example.ergoen.data.network.interceptors.HeadersInterceptor
+import com.example.ergoen.data.network.interceptors.TokenRequestInterceptor
+import com.example.ergoen.data.network.interceptors.UnauthorizedInterceptor
 import com.example.ergoen.data.network.mapper.ApiMapper
 import com.example.ergoen.data.network.mapper.ApiMapperImpl
 import com.example.ergoen.domain.repository.AuthRepository
@@ -36,6 +38,21 @@ val appModule = module {
     single(named(DISPATCHER_MAIN)) { Dispatchers.Main }
     single(named(DISPATCHER_IO)) { Dispatchers.IO }
 
+    // DB
+    single {
+        Room
+            .databaseBuilder(androidContext(), ErgoenDb::class.java, DATA_BASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+    single<DbMapper> {
+        DbMapperImpl()
+    }
+    single {
+        get<ErgoenDb>().authDao()
+    }
+
+
     // Network
     single {
         HttpLoggingInterceptor().apply {
@@ -44,7 +61,15 @@ val appModule = module {
     }
 
     single {
+        UnauthorizedInterceptor()
+    }
+
+    single {
         HeadersInterceptor()
+    }
+
+    single {
+        TokenRequestInterceptor(get(), get())
     }
 
     single {
@@ -52,7 +77,9 @@ val appModule = module {
         if (BuildConfig.DEBUG) {
             client.addInterceptor(get<HttpLoggingInterceptor>())
         }
+        client.addInterceptor(get<TokenRequestInterceptor>())
         client.addInterceptor(get<HeadersInterceptor>())
+        client.addInterceptor(get<UnauthorizedInterceptor>())
         client.build()
     }
 
@@ -72,20 +99,6 @@ val appModule = module {
     }
     single<ApiMapper> {
         ApiMapperImpl()
-    }
-
-    // DB
-    single {
-        Room
-            .databaseBuilder(androidContext(), ErgoenDb::class.java, DATA_BASE_NAME)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-    single<DbMapper> {
-        DbMapperImpl()
-    }
-    single {
-        get<ErgoenDb>().authDao()
     }
 
     // Repository

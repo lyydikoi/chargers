@@ -8,5 +8,5 @@ import retrofit2.Response
 interface AuthRepository {
     suspend fun login(email: String, password: String): RequestResult<Token>
     suspend fun updateToken(token: Token)
-    fun getToken(): Flow<Token>
+    fun getToken(): Token
 }
