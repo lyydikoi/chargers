@@ -1,7 +1,5 @@
 package com.example.ergoen.data
 
-import android.location.Location
-import androidx.lifecycle.LiveData
 import com.example.ergoen.data.network.client.ErgoenApiClient
 import com.example.ergoen.data.network.mapper.ApiMapper
 import com.example.ergoen.data.utils.RequestResult

@@ -10,6 +10,7 @@ import com.example.ergoen.domain.model.Token
 import com.example.ergoen.domain.repository.AuthRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.lang.Exception
@@ -49,7 +50,12 @@ class AuthRepositoryImpl(
         authDao.updateToken(dbMapper.mapDomainTokenToDb(token))
     }
 
-    override fun getToken(): Token = dbMapper.mapDbTokenToDomain(authDao.getToken())
+    override fun getTokenStream(): Flow<Token> =
+        authDao
+            .getTokenStream()
+            .distinctUntilChanged()
+            .map { dbMapper.mapDbTokenToDomain(it) }
+
 }
 
 class InvalidTokenException(message: String) : Exception(message)

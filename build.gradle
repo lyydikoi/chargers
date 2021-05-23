@@ -46,7 +46,7 @@ ext {
     koinVersion = '2.0.1'
     lifeCycleExtenctionVersion = '2.1.0'
     lifeCycleViewModelVersion = "2.1.0"
-    livaDataVersion = '2.1.0'
+    livaDataVersion = '2.3.1'
     locationServiceVersion = '17.0.0'
     loggingInterceptorVersion = '4.5.0'
     materialVersion = '1.3.0'

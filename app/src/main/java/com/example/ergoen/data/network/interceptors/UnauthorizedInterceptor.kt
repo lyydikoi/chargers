@@ -1,5 +1,8 @@
 package com.example.ergoen.data.network.interceptors
 
+import com.example.ergoen.data.db.dao.AuthDao
+import com.example.ergoen.data.db.mapper.DbMapper
+import com.example.ergoen.domain.model.Token
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

@@ -1,20 +1,38 @@
 package com.example.ergoen.ui.chargers
 
-import android.location.Location
 import androidx.lifecycle.*
 import com.example.ergoen.domain.model.Charger
+import com.example.ergoen.domain.model.Token
+import com.example.ergoen.domain.repository.AuthRepository
 import com.example.ergoen.domain.repository.ChargersRepository
 import com.example.ergoen.ui.BaseViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class ChargersViewModel(
-    chargersRepository: ChargersRepository
+    private val chargersRepository: ChargersRepository,
+    authRepository: AuthRepository
 ) : BaseViewModel() {
 
     init {
         launchDataLoad {
             chargersRepository.getChargers()
         }
+
+        viewModelScope.launch {
+            delay(1000 * 10)
+            authRepository.updateToken(Token.EMPTY)
+        }
     }
+
+    val accessToken: LiveData<String> = authRepository
+        .getTokenStream()
+        .map { it.accessToken }
+        .catch { }
+        .asLiveData()
+
     /*private*/ val _isReversedSorting by lazy { MutableLiveData(false) }
     //private val _chargersList = chargersRepository.closestChargers()
 

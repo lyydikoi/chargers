@@ -7,15 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.ergoen.R
 import com.example.ergoen.databinding.FragmentChargersListBinding
 import com.example.ergoen.ui.chargers.adapter.ChargersListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ChargersListFragment : Fragment() {
-
-    private var isReversedSorting = false
     private lateinit var binding: FragmentChargersListBinding
     private val viewModel by viewModel<ChargersViewModel>()
+
     private val adapter by lazy {
         ChargersListAdapter(object : ChargersListAdapter.Interaction {
             override fun itemClicked(position: Int) {
@@ -37,21 +38,17 @@ class ChargersListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        /*viewModel.ldSortedChargersList.observe(viewLifecycleOwner, { chargers ->
-            chargers?.let {
-                adapter.submitList(chargers)
-                adapter.notifyItemChanged(chargers.lastIndex)
-            }
-        })*/
-        viewModel._isReversedSorting.observe(viewLifecycleOwner, {
-            Log.v("", "dsfsdaf")
-        })
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initObservers()
+    }
+
+    private fun initObservers() {
+        viewModel.accessToken.observe(viewLifecycleOwner, { token ->
+            if (token.isBlank()) findNavController().navigate(R.id.loginFragment)
+        })
+
+
     }
 }
