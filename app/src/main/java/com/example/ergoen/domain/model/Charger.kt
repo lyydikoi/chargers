@@ -3,7 +3,7 @@ package com.example.ergoen.domain.model
 data class Charger(
     val address: String,
     val city: String,
-    val country: String,
+    val country: String?,
     val evses: List<Evse>,
     val icon: Int,
     val id: Int,

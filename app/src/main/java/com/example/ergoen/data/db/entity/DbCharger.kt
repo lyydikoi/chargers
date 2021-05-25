@@ -14,7 +14,7 @@ class DbCharger(
     val id: Int,
     val address: String,
     val city: String,
-    val country: String,
+    val country: String?,
     val evses: List<DbEvse>,
     val icon: Int,
     val isPrivate: Boolean,

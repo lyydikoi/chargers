@@ -8,7 +8,7 @@ data class ChargerResponseItem(
     @SerializedName("city")
     val city: String,
     @SerializedName("country")
-    val country: String,
+    val country: String?,
     @SerializedName("evses")
     val evses: List<EvseResponse>,
     @SerializedName("icon")

@@ -3,6 +3,7 @@ package com.example.ergoen.ui
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import android.content.pm.PackageManager
@@ -12,8 +13,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import com.example.ergoen.R
 import com.example.ergoen.data.network.interceptors.UnauthorizedInterceptor
+import com.example.ergoen.databinding.ActivityMainBinding
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
 import com.google.android.gms.tasks.Task
@@ -25,6 +28,10 @@ const val LOCATION_REQUEST_INTERVAL: Long = 3000
 
 class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedExceptionListener {
     private val mainActivityViewModel: MainActivityViewModel by viewModel()
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_main) as ActivityMainBinding
+    }
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val locationRequest by lazy {
         LocationRequest.create().apply {
@@ -45,7 +52,7 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         Log.v("TEST_ERGOEN", "MainActivity.onCreate()")
         UnauthorizedInterceptor.addListener(this)
@@ -101,7 +108,9 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
     }
 
     private fun locationPermissionGranted(): Boolean {
-        if (1 == 2 /*isMissingPermission*/) {
+        if (PackageManager.PERMISSION_GRANTED !=
+            ContextCompat.checkSelfPermission(this as Context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 9)
 
@@ -109,6 +118,10 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
         }
         return true
     }
+
+    //private val isMissingPermission = PackageManager.PERMISSION_GRANTED !=
+            //ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

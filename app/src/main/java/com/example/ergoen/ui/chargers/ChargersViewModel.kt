@@ -3,15 +3,11 @@ package com.example.ergoen.ui.chargers
 import androidx.lifecycle.*
 import com.example.ergoen.domain.model.Charger
 import com.example.ergoen.domain.model.LocationDetails
-import com.example.ergoen.domain.model.Token
 import com.example.ergoen.domain.repository.AuthRepository
 import com.example.ergoen.domain.repository.ChargersRepository
 import com.example.ergoen.ui.BaseViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 
 class ChargersViewModel(
     chargersRepository: ChargersRepository,
@@ -20,15 +16,17 @@ class ChargersViewModel(
 
     init {
         launchDataLoad {
-            chargersRepository.getChargers()
+            chargersRepository.updateChargers()
         }
 
+        // Test expired token
         /*viewModelScope.launch {
             delay(1000 * 10)
             authRepository.updateToken(Token.EMPTY)
         }*/
     }
 
+    // Control expired token
     val accessToken: LiveData<String> = authRepository
         .getTokenStream()
         .map { it.accessToken }

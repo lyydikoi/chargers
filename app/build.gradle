@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.example.ergoen"
@@ -35,20 +35,24 @@ android {
     dataBinding {
         enabled = true
     }
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "androidx.core:core-ktx:$androidXCore"
     implementation "androidx.appcompat:appcompat:$appCompat"
+    implementation "androidx.core:core-ktx:$androidXCore"
+    implementation "com.google.android.gms:play-services-maps:$mapServiceVersion"
+    implementation "com.google.android.gms:play-services-location:$locationServiceVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
-    implementation "com.google.android.gms:play-services-maps:$mapServiceVersion"
 
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtenctionVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleViewModelVersion"
-    implementation "com.google.android.gms:play-services-location:$locationServiceVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livaDataVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"

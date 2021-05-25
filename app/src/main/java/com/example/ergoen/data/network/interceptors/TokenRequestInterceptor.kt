@@ -20,7 +20,9 @@ class TokenRequestInterceptor(
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        token = dbMapper.mapDbTokenToDomain(authDao.getToken())
+        authDao.getToken()?.let {
+            token = dbMapper.mapDbTokenToDomain(it)
+        }
         val originalRequest = chain.request()
         var newRequest: Request? = null
 

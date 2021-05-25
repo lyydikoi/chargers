@@ -16,7 +16,7 @@ interface AuthDao {
     fun getTokenStream(): Flow<DbToken>
 
     @Query("SELECT * from auth_table LIMIT(1)")
-    fun getToken(): DbToken
+    fun getToken(): DbToken?
 
     @Query("DELETE FROM auth_table")
     suspend fun clearToken()

@@ -1,9 +1,11 @@
 package com.example.ergoen.data
 
+import android.util.Log
 import com.example.ergoen.data.db.dao.ChargerDao
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.network.client.ErgoenApiClient
 import com.example.ergoen.data.network.mapper.ApiMapper
+import com.example.ergoen.data.network.model.ChargerResponseItem
 import com.example.ergoen.data.utils.RequestResult
 import com.example.ergoen.domain.model.Charger
 import com.example.ergoen.domain.model.LocationDetails
@@ -30,19 +32,22 @@ class ChargersRepositoryImpl(
                 chargersList.map { dbMapper.mapDbChargerToDomain(it) }
             }
 
-    override suspend fun getChargers(/*location: Location*/): RequestResult<List<Charger>> =
+    override suspend fun updateChargers(/*location: Location*/): RequestResult<List<Charger>> =
         withContext(dispatcherIO) {
-            var chargers = listOf<Charger>()
+            var chargers = listOf<ChargerResponseItem>()
+            Log.v("TEST_CHARGERS", "updateChargers()")
             return@withContext try {
-                chargers = apiClient.getChargers(60, 61, 24, 25).map {
+                chargers = apiClient.getChargers(60, 61, 24, 25)
+                val mappedChargers = chargers.map {
                     apiMapper.mapChargerResponseToDomain(it)
                 }
 
+                Log.v("TEST_CHARGERS", "insertChargers: $chargers")
                 chargerDao.insertChargers(
-                    chargers.map { dbMapper.mapDomainChargerToDb(it) }
+                    mappedChargers.map { dbMapper.mapDomainChargerToDb(it) }
                 )
 
-                RequestResult.Success(chargers)
+                RequestResult.Success(mappedChargers)
             } catch (error: Throwable) {
                 RequestResult.Error(
                     LoadChargersException(error.message ?: error.toString())

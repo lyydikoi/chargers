@@ -9,8 +9,8 @@ import com.example.ergoen.domain.model.LocationDetails
 import kotlinx.coroutines.flow.Flow
 
 interface ChargersRepository {
+    suspend fun updateChargers(/*location: Location*/) : RequestResult<List<Charger>>
     fun getChargersStream(): Flow<List<Charger>>
-    suspend fun getChargers(/*location: Location*/) : RequestResult<List<Charger>>
 
     suspend fun updateLocationDetails(locationDetails: LocationDetails)
     fun getLocationDetailsStream(): Flow<LocationDetails>
