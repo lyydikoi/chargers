@@ -1,8 +1,5 @@
 package com.example.ergoen.data.network.interceptors
 
-import com.example.ergoen.data.db.dao.AuthDao
-import com.example.ergoen.data.db.mapper.DbMapper
-import com.example.ergoen.domain.model.Token
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException
@@ -12,6 +9,7 @@ class UnauthorizedInterceptor : Interceptor {
 
     companion object {
         private var listener: UnauthorizedExceptionListener? = null
+
         fun publish(exception: Exception) {
             listener?.onTokenInvalid(exception)
         }
@@ -23,7 +21,7 @@ class UnauthorizedInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val response = chain.proceed(chain.request())
-        if (response.code == 401 ) {
+        if (response.code == 401) {
             publish(UnauthorizedException())
         }
 

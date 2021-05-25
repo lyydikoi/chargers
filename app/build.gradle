@@ -43,6 +43,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompat"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayout"
+    implementation "com.google.android.gms:play-services-maps:$mapServiceVersion"
 
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtenctionVersion"

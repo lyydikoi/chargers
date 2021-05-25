@@ -15,7 +15,6 @@ import com.example.ergoen.data.network.mapper.ApiMapper
 import com.example.ergoen.data.network.mapper.ApiMapperImpl
 import com.example.ergoen.domain.repository.AuthRepository
 import com.example.ergoen.domain.repository.ChargersRepository
-import com.example.ergoen.utils.DATA_BASE_NAME
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -30,6 +29,8 @@ private const val BASE_URL_NAME = "BASE_URL"
 private const val BASE_URL = "https://apitest.virta.fi/"
 private const val DISPATCHER_MAIN = "dispatcher_main"
 private const val DISPATCHER_IO = "dispatcher_io"
+// Database
+const val DATA_BASE_NAME = "ergoen.db"
 
 val appModule = module {
     single(named(BASE_URL_NAME)) {
@@ -51,7 +52,9 @@ val appModule = module {
     single {
         get<ErgoenDb>().authDao()
     }
-
+    single {
+        get<ErgoenDb>().chargerDao()
+    }
 
     // Network
     single {
@@ -113,6 +116,8 @@ val appModule = module {
     }
     single<ChargersRepository> {
         ChargersRepositoryImpl(
+            get(),
+            get(),
             get(),
             get(),
             get(named(DISPATCHER_IO))

@@ -42,7 +42,7 @@ class AuthRepositoryImpl(
                     InvalidTokenException(error.message ?: error.toString())
                 )
             } finally {
-                authDao.updateToken(dbMapper.mapDomainTokenToDb(token.copy()))
+                updateToken(token.copy())
             }
         }
 

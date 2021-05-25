@@ -3,7 +3,6 @@ package com.example.ergoen.data.db.dao
 import androidx.room.*
 import com.example.ergoen.data.db.entity.DbToken
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
 interface AuthDao {
