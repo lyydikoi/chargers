@@ -1,6 +1,6 @@
 
 # README #
-### Chargers is an Android Application with login, fetching and listing of data.###
+### Chargers is an Android Application with login, fetching and listing of data.
 
 ### Features ###
 * Show login screen if user is not logged in yet.
