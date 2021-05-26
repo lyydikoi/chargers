@@ -5,7 +5,7 @@ import com.example.ergoen.data.db.entity.DbToken
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface AuthDao {
+interface   AuthDao {
     @Transaction
     suspend fun updateToken(token: DbToken) {
         clearToken()
@@ -13,7 +13,7 @@ interface AuthDao {
     }
 
     @Query("SELECT * from auth_table LIMIT(1)")
-    fun getTokenStream(): Flow<DbToken>
+    fun getTokenStream(): Flow<DbToken?>
 
     @Query("SELECT * from auth_table LIMIT(1)")
     fun getToken(): DbToken?

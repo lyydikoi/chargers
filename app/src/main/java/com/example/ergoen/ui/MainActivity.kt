@@ -24,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
 const val REQUEST_CHECK_SETTINGS = 11111
-const val LOCATION_REQUEST_INTERVAL: Long = 3000
+const val LOCATION_REQUEST_INTERVAL: Long = 1000
 
 class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedExceptionListener {
     private val mainActivityViewModel: MainActivityViewModel by viewModel()
@@ -42,9 +42,7 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
-            Log.v("TEST_ERGOEN", "locationCallback, result : $locationResult")
             locationResult.locations[0]?.let { location ->
-                Log.v("TEST_ERGOEN", "locationCallback, location: $location")
                 mainActivityViewModel.setUserLocation(location)
             }
         }
@@ -54,14 +52,8 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        Log.v("TEST_ERGOEN", "MainActivity.onCreate()")
         UnauthorizedInterceptor.addListener(this)
         requestLocation()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.v("TEST_ERGOEN", "MainActivity.onDestroy")
     }
 
     override fun onTokenInvalid(exception: Exception) {
@@ -71,10 +63,8 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
     // All location related things go below.
     @SuppressLint("MissingPermission")
     private fun initLocationUpdates() {
-        Log.v("TEST_ERGOEN", "initLocationUpdates()")
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            Log.v("TEST_ERGOEN", "lastLocation.addOnSuccessListener: $location")
             location?.let {
                 mainActivityViewModel.setUserLocation(location)
 

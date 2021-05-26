@@ -3,6 +3,8 @@ package com.example.ergoen.ui.chargers
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,6 +16,7 @@ import com.example.ergoen.R
 import com.example.ergoen.databinding.FragmentChargersListBinding
 import com.example.ergoen.ui.chargers.ChargersListUiContract.UiState
 import com.example.ergoen.ui.chargers.adapter.ChargersListAdapter
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,6 +44,7 @@ class ChargersListFragment : Fragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,6 +64,7 @@ class ChargersListFragment : Fragment() {
         initObservers()
     }
 
+    @ExperimentalCoroutinesApi
     private fun initObservers() {
         viewModel.accessTokenStream.observe(
             viewLifecycleOwner,
@@ -79,10 +84,13 @@ class ChargersListFragment : Fragment() {
                     is UiState.Success -> {
                         adapter.submitList(uiState.chargers)
                         adapter.notifyItemChanged(uiState.chargers.lastIndex)
+                        binding.chargersListProgress.visibility = GONE
                     }
                     is UiState.Failure -> {
+                        binding.chargersListProgress.visibility = GONE
                         Toast.makeText(context, uiState.message, Toast.LENGTH_SHORT).show()
                     }
+                    is UiState.Loading -> binding.chargersListProgress.visibility = VISIBLE
                 }
             }
         }

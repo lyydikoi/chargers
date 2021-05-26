@@ -1,4 +1,4 @@
-package com.example.ergoen.ui.chargers
+ package com.example.ergoen.ui.chargers
 
 import androidx.lifecycle.*
 import com.example.ergoen.domain.model.Charger
@@ -13,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-private const val LOCATION_DELAY_MILLIS = 3000L
+private const val LOCATION_DELAY_MILLIS = 1000L
 
 @ExperimentalCoroutinesApi
 class ChargersViewModel(
@@ -26,7 +26,7 @@ class ChargersViewModel(
         dist to kw
     }
 
-    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Success(emptyList()))
+    private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val uiState: Flow<UiState> = _uiState.combine(_settings) { uiModel, settings ->
         when (uiModel) {
             is UiState.Success -> {
@@ -39,9 +39,8 @@ class ChargersViewModel(
                     }
                 )
             }
-            is UiState.Failure -> {
-                uiModel
-            }
+            is UiState.Failure -> uiModel
+            is UiState.Loading -> uiModel
         }
     }
 
@@ -69,7 +68,9 @@ class ChargersViewModel(
     val accessTokenStream: LiveData<String> =
         authRepository
             .getTokenStream()
-            .map { it.accessToken }
+            .map {
+                it.accessToken
+            }
             .asLiveData()
 
     val locationDetailsStream: LiveData<LocationDetails> =

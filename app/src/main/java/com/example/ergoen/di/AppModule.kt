@@ -1,6 +1,10 @@
 package com.example.ergoen.di
 
+import android.graphics.ColorSpace.Model
+import android.os.AsyncTask
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.ergoen.BuildConfig
 import com.example.ergoen.data.AuthRepositoryImpl
 import com.example.ergoen.data.ChargersRepositoryImpl
@@ -8,7 +12,6 @@ import com.example.ergoen.data.db.ErgoenDb
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.db.mapper.DbMapperImpl
 import com.example.ergoen.data.network.client.ErgoenApiClient
-import com.example.ergoen.data.network.interceptors.HeadersInterceptor
 import com.example.ergoen.data.network.interceptors.TokenRequestInterceptor
 import com.example.ergoen.data.network.interceptors.UnauthorizedInterceptor
 import com.example.ergoen.data.network.mapper.ApiMapper
@@ -24,6 +27,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
 
 private const val BASE_URL_NAME = "BASE_URL"
 private const val BASE_URL = "https://apitest.virta.fi/"
@@ -68,10 +72,6 @@ val appModule = module {
     }
 
     single {
-        HeadersInterceptor()
-    }
-
-    single {
         TokenRequestInterceptor(get(), get())
     }
 
@@ -81,7 +81,6 @@ val appModule = module {
             client.addInterceptor(get<HttpLoggingInterceptor>())
         }
         client.addInterceptor(get<TokenRequestInterceptor>())
-        client.addInterceptor(get<HeadersInterceptor>())
         client.addInterceptor(get<UnauthorizedInterceptor>())
         client.build()
     }

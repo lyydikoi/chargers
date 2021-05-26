@@ -1,6 +1,5 @@
 package com.example.ergoen.data
 
-import android.util.Log
 import com.example.ergoen.data.db.dao.ChargerDao
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.network.client.ErgoenApiClient
@@ -14,6 +13,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
@@ -39,14 +39,12 @@ class ChargersRepositoryImpl(
     ): RequestResult<List<Charger>> =
         withContext(dispatcherIO) {
             var chargers: List<ChargerResponseItem>
-            Log.v("TEST_CHARGERS", "updateChargers()")
             return@withContext try {
                 chargers = apiClient.getChargers(latMin, latMax, lngMin, lngMax)
                 val mappedChargers = chargers.map {
                     apiMapper.mapChargerResponseToDomain(it)
                 }
 
-                Log.v("TEST_CHARGERS", "insertChargers: $chargers")
                 chargerDao.insertChargers(
                     mappedChargers.map { dbMapper.mapDomainChargerToDb(it) }
                 )
@@ -67,6 +65,7 @@ class ChargersRepositoryImpl(
         chargerDao
             .getLocationDetailsStream()
             .distinctUntilChanged()
+            .mapNotNull { it }
             .map { dbMapper.mapDbLocationDetailsToDomain(it) }
 }
 

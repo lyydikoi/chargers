@@ -12,6 +12,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
@@ -54,7 +55,11 @@ class AuthRepositoryImpl(
         authDao
             .getTokenStream()
             .distinctUntilChanged()
-            .map { dbMapper.mapDbTokenToDomain(it) }
+            .map {
+                it?.let {
+                    dbMapper.mapDbTokenToDomain(it)
+                } ?:Token.EMPTY
+            }
 }
 
 class InvalidTokenException(message: String) : Exception(message)

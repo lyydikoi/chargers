@@ -19,13 +19,14 @@ class TokenRequestInterceptor(
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
-        authDao.getToken()?.let {
-            token = dbMapper.mapDbTokenToDomain(it)
-        }
+        token = authDao.getToken()?.let {
+            dbMapper.mapDbTokenToDomain(it)
+        } ?: Token.EMPTY
+
         val originalRequest = chain.request()
         var newRequest: Request? = null
 
-        if (!token?.accessToken.isNullOrBlank()) {
+        if (token!!.accessToken.isNotBlank()) {
             newRequest = originalRequest.newBuilder()
                 .addHeader(HEADER_AUTHORIZATION, "$BEARER ${token!!.accessToken}")
                 .build()
