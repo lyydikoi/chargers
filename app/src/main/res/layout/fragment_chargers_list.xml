@@ -35,7 +35,7 @@
             android:padding="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            app:srcCompat="@drawable/ic_baseline_battery_charging_full_24" />
 
         <ImageView
             android:id="@+id/image_chargers_distance_toggle"
@@ -47,7 +47,7 @@
             android:padding="12dp"
             app:layout_constraintEnd_toStartOf="@+id/image_chargers_kw_toggle"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher_round" />
+            app:srcCompat="@drawable/ic_baseline_directions_car_24" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chargers"
