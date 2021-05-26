@@ -6,7 +6,7 @@ import com.example.ergoen.data.network.model.LoginResponse
 import retrofit2.http.*
 
 interface ErgoenApiClient {
-    @Headers( "Content-Type: application/json" )
+    @Headers("Content-Type: application/json")
     @POST("/v4/auth")
     suspend fun login(@Body loginRequest: LoginRequest): LoginResponse
 

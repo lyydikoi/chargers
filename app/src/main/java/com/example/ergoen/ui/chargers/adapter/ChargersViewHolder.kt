@@ -12,7 +12,7 @@ class ChargersViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
-        itemView.setOnClickListener{
+        itemView.setOnClickListener {
             if (adapterPosition == RecyclerView.NO_POSITION) return@setOnClickListener
             interaction?.itemClicked(adapterPosition)
         }
@@ -20,7 +20,7 @@ class ChargersViewHolder(
 
     fun bind(charger: ChargerViewState) {
         with(binding) {
-            textChargersTitle.text =  charger.distance.toString()
+            textChargersTitle.text = charger.distance.toString()
             textChargersKw.visibility = if (charger.kwLabelEnabled) VISIBLE else GONE
             textChargersDistance.visibility = if (charger.distanceLabelEnabled) VISIBLE else GONE
         }

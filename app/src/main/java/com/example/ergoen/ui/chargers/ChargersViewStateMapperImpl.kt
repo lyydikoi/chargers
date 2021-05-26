@@ -53,7 +53,6 @@ private fun mapChargerToViewState(
     }
 }
 
-
 // TODO: move to UTILS
 private fun getDistanceBetweenInKm(
     startLatitude: Double?,
@@ -62,7 +61,8 @@ private fun getDistanceBetweenInKm(
     endLongitude: Double?
 ): Float {
     if (startLatitude == null || startLongitude == null ||
-        endLatitude == null || endLongitude == null) return 0.0F
+        endLatitude == null || endLongitude == null
+    ) return 0.0F
 
     val distanceBetween = FloatArray(1)
     if (startLatitude != 0.0 && startLongitude != 0.0) {
@@ -82,5 +82,5 @@ private fun getDistanceBetweenInKm(
 
 // TODO: move to UTILS
 private fun Float.roundTo(decimalPlaces: Int): Float {
-    return "%.${decimalPlaces}f".format(Locale.ENGLISH,this).toFloat()
+    return "%.${decimalPlaces}f".format(Locale.ENGLISH, this).toFloat()
 }

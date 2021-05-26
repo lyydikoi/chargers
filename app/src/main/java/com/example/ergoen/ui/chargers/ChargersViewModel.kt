@@ -28,7 +28,7 @@ class ChargersViewModel(
 
     private val _uiState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Success(emptyList()))
     val uiState: Flow<UiState> = _uiState.combine(_settings) { uiModel, settings ->
-        when(uiModel) {
+        when (uiModel) {
             is UiState.Success -> {
                 uiModel.copy(
                     chargers = uiModel.chargers.map {
@@ -90,7 +90,7 @@ class ChargersViewModel(
     }
 
     fun setIsKwEnabled(enabled: Boolean) {
-       _isKwEnabled.value = enabled
+        _isKwEnabled.value = enabled
     }
 
     fun setIsDistanceEnabled(enabled: Boolean) {

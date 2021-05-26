@@ -1,12 +1,12 @@
 package com.example.ergoen.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.ergoen.R
 import com.example.ergoen.databinding.FragmentLoginBinding
@@ -19,7 +19,8 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -70,6 +71,5 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
     }
 }

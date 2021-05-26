@@ -1,9 +1,7 @@
 package com.example.ergoen.data
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.example.ergoen.data.db.dao.ChargerDao
-import com.example.ergoen.data.db.entity.DbCharger
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.network.client.ErgoenApiClient
 import com.example.ergoen.data.network.mapper.ApiMapper
@@ -15,7 +13,6 @@ import com.example.ergoen.domain.repository.ChargersRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.lang.Exception

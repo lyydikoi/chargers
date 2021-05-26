@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
                     initLocationUpdates()
                 }
                 it.addOnFailureListener { exception ->
-                    if (exception is ResolvableApiException){
+                    if (exception is ResolvableApiException) {
                         // Location settings are not satisfied, but this can be fixed by showing
                         // a dialog to user .
                         try {
@@ -111,17 +111,19 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
 
     private fun locationPermissionGranted(): Boolean {
         if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(
-                this as Context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            this as Context, Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        ) {
 
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 9)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 9
+            )
 
             return false
         }
         return true
     }
-
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -139,7 +141,7 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
     private fun getLocationSettings(): Task<LocationSettingsResponse>? {
         val settingsBuilder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
         val settingsClient: SettingsClient = LocationServices.getSettingsClient(this)
-        return  settingsClient.checkLocationSettings(settingsBuilder.build())
+        return settingsClient.checkLocationSettings(settingsBuilder.build())
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

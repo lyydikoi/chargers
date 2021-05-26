@@ -55,7 +55,6 @@ class AuthRepositoryImpl(
             .getTokenStream()
             .distinctUntilChanged()
             .map { dbMapper.mapDbTokenToDomain(it) }
-
 }
 
 class InvalidTokenException(message: String) : Exception(message)

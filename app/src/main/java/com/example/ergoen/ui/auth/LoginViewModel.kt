@@ -44,7 +44,7 @@ class LoginViewModel(
     }
 
     fun handleAction(action: Action) {
-        when(action) {
+        when (action) {
             is Action.PerformLogin -> login()
         }
     }
@@ -52,7 +52,7 @@ class LoginViewModel(
     private fun login() {
         if (_username.value.isNullOrBlank() || _password.value.isNullOrBlank()) return
 
-        launchDataLoad(_loginResult) { 
+        launchDataLoad(_loginResult) {
             authRepository.login(_username.value!!, _password.value!!)
         }
     }

@@ -2,8 +2,8 @@ package com.example.ergoen.ui.chargers
 
 interface ChargersListUiContract {
     sealed class UiState {
-        data class Success(val chargers: List<ChargerViewState>): UiState()
-        data class Failure(val message: String): UiState()
+        data class Success(val chargers: List<ChargerViewState>) : UiState()
+        data class Failure(val message: String) : UiState()
     }
 
     data class ChargerViewState(

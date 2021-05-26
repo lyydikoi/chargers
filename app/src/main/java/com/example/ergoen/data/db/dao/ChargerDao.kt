@@ -1,6 +1,5 @@
 package com.example.ergoen.data.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.ergoen.data.db.entity.DbCharger
 import com.example.ergoen.data.db.entity.DbLocationDetails

@@ -67,4 +67,3 @@ class DbConnectorListConverter {
         return gson.fromJson(serializedString, type)
     }
 }
-

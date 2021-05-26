@@ -8,7 +8,6 @@ import com.example.ergoen.domain.model.Charger
 import com.example.ergoen.domain.model.Connector
 import com.example.ergoen.domain.model.Evse
 import com.example.ergoen.domain.model.Token
-import com.google.gson.annotations.SerializedName
 
 class ApiMapperImpl : ApiMapper {
     override fun mapLoginResponseToDomain(loginResponse: LoginResponse): Token {

@@ -11,8 +11,8 @@ class HeadersInterceptor : Interceptor {
             chain
                 .request()
                 .apply {
-                    Log.d("TAG","Test Headers ${this.headers.toString()}")
-                    Log.d("TAG","Test Headers ${chain.toString()}")
+                    Log.d("TAG", "Test Headers ${this.headers}")
+                    Log.d("TAG", "Test Headers $chain")
                 }
                 .newBuilder()
                 .build()

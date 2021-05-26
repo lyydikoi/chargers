@@ -2,8 +2,8 @@ package com.example.ergoen.di
 
 import androidx.room.Room
 import com.example.ergoen.BuildConfig
-import com.example.ergoen.data.ChargersRepositoryImpl
 import com.example.ergoen.data.AuthRepositoryImpl
+import com.example.ergoen.data.ChargersRepositoryImpl
 import com.example.ergoen.data.db.ErgoenDb
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.db.mapper.DbMapperImpl
@@ -87,7 +87,7 @@ val appModule = module {
     }
 
     single {
-       GsonBuilder().create()
+        GsonBuilder().create()
     }
 
     single {

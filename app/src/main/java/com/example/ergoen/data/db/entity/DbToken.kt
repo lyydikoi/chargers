@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "auth_table")
 data class DbToken(
     @PrimaryKey
-    val accessToken : String,
-    val tokenType : String,
-    val expiresIn : Int,
-    val token : String
+    val accessToken: String,
+    val tokenType: String,
+    val expiresIn: Int,
+    val token: String
 )

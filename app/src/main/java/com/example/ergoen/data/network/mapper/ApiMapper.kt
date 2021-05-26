@@ -10,8 +10,8 @@ import com.example.ergoen.domain.model.Evse
 import com.example.ergoen.domain.model.Token
 
 interface ApiMapper {
-    fun mapLoginResponseToDomain(loginResponse: LoginResponse) : Token
-    fun mapChargerResponseToDomain(chargerResponse: ChargerResponseItem) : Charger
+    fun mapLoginResponseToDomain(loginResponse: LoginResponse): Token
+    fun mapChargerResponseToDomain(chargerResponse: ChargerResponseItem): Charger
     fun mapEvseResponseToDomain(evseResponse: EvseResponse): Evse
     fun mapConnectorResponseToDomain(connectorResponse: ConnectorResponse): Connector
 }
