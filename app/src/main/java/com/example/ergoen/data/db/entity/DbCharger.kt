@@ -32,7 +32,7 @@ data class DbEvse(
 )
 
 data class DbConnector(
-    val maxKw: Float,
+    val maxKw: Float?,
     val type: String
 )
 

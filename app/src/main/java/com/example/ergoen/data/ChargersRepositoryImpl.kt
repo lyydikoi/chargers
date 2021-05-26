@@ -1,7 +1,9 @@
 package com.example.ergoen.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.example.ergoen.data.db.dao.ChargerDao
+import com.example.ergoen.data.db.entity.DbCharger
 import com.example.ergoen.data.db.mapper.DbMapper
 import com.example.ergoen.data.network.client.ErgoenApiClient
 import com.example.ergoen.data.network.mapper.ApiMapper
@@ -13,6 +15,7 @@ import com.example.ergoen.domain.repository.ChargersRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.lang.Exception
@@ -25,19 +28,23 @@ class ChargersRepositoryImpl(
     private val dispatcherIO: CoroutineDispatcher
 ) : ChargersRepository {
     override fun getChargersStream(): Flow<List<Charger>> =
-        chargerDao
-            .getChargersStream()
+        chargerDao.getChargersStream()
             .distinctUntilChanged()
             .map { chargersList ->
                 chargersList.map { dbMapper.mapDbChargerToDomain(it) }
             }
 
-    override suspend fun updateChargers(/*location: Location*/): RequestResult<List<Charger>> =
+    override suspend fun updateChargers(
+        latMin: Int,
+        latMax: Int,
+        lngMin: Int,
+        lngMax: Int
+    ): RequestResult<List<Charger>> =
         withContext(dispatcherIO) {
-            var chargers = listOf<ChargerResponseItem>()
+            var chargers: List<ChargerResponseItem>
             Log.v("TEST_CHARGERS", "updateChargers()")
             return@withContext try {
-                chargers = apiClient.getChargers(60, 61, 24, 25)
+                chargers = apiClient.getChargers(latMin, latMax, lngMin, lngMax)
                 val mappedChargers = chargers.map {
                     apiMapper.mapChargerResponseToDomain(it)
                 }

@@ -10,8 +10,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.example.ergoen.R
 import com.example.ergoen.databinding.FragmentLoginBinding
-import com.example.ergoen.ui.auth.LoginUiModel.Action
-import com.example.ergoen.ui.auth.LoginUiModel.UiState
+import com.example.ergoen.ui.auth.LoginUiContract.Action
+import com.example.ergoen.ui.auth.LoginUiContract.UiState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
                 viewModel.onPasswordChanged(text.toString())
             }
             buttonLogin.setOnClickListener {
-                viewModel.handleAction(Action.performLogin)
+                viewModel.handleAction(Action.PerformLogin)
             }
         }
     }

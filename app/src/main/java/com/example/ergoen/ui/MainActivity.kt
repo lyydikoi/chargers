@@ -75,13 +75,15 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             Log.v("TEST_ERGOEN", "lastLocation.addOnSuccessListener: $location")
-            mainActivityViewModel.setUserLocation(location)
+            location?.let {
+                mainActivityViewModel.setUserLocation(location)
 
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            )
+                fusedLocationClient.requestLocationUpdates(
+                    locationRequest,
+                    locationCallback,
+                    Looper.getMainLooper()
+                )
+            }
         }
     }
 
@@ -108,8 +110,8 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
     }
 
     private fun locationPermissionGranted(): Boolean {
-        if (PackageManager.PERMISSION_GRANTED !=
-            ContextCompat.checkSelfPermission(this as Context, Manifest.permission.ACCESS_FINE_LOCATION)) {
+        if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(
+                this as Context, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 9)
@@ -119,8 +121,6 @@ class MainActivity : AppCompatActivity(), UnauthorizedInterceptor.UnauthorizedEx
         return true
     }
 
-    //private val isMissingPermission = PackageManager.PERMISSION_GRANTED !=
-            //ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
 
 
     override fun onRequestPermissionsResult(

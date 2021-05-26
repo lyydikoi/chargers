@@ -4,8 +4,8 @@ import androidx.lifecycle.*
 import com.example.ergoen.domain.model.Token
 import com.example.ergoen.domain.repository.AuthRepository
 import com.example.ergoen.ui.BaseViewModel
-import com.example.ergoen.ui.auth.LoginUiModel.Action
-import com.example.ergoen.ui.auth.LoginUiModel.UiState
+import com.example.ergoen.ui.auth.LoginUiContract.Action
+import com.example.ergoen.ui.auth.LoginUiContract.UiState
 
 class LoginViewModel(
     private val authRepository: AuthRepository
@@ -45,7 +45,7 @@ class LoginViewModel(
 
     fun handleAction(action: Action) {
         when(action) {
-            is Action.performLogin -> login()
+            is Action.PerformLogin -> login()
         }
     }
 

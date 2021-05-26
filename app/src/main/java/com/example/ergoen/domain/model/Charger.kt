@@ -22,6 +22,6 @@ data class Evse(
 )
 
 data class Connector(
-    val maxKw: Float,
+    val maxKw: Float?,
     val type: String
 )

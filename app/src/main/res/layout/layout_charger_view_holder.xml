@@ -9,6 +9,33 @@
         android:elevation="3dp"
         android:layout_margin="8dp">
 
+        <TextView
+            android:id="@+id/text_chargers_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="I'm charger station"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_chargers_kw"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="KW"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_chargers_title" />
+
+        <TextView
+            android:id="@+id/text_chargers_distance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="DISTANCE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_chargers_kw" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -1,6 +1,6 @@
 package com.example.ergoen.ui.auth
 
-interface LoginUiModel {
+interface LoginUiContract {
     sealed class UiState {
         object Loading : UiState()
         data class Failure(val message: String) : UiState()
@@ -9,6 +9,6 @@ interface LoginUiModel {
     }
 
     sealed class Action {
-        object performLogin : Action()
+        object PerformLogin : Action()
     }
 }

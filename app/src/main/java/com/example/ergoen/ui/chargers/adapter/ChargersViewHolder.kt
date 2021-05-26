@@ -1,8 +1,10 @@
 package com.example.ergoen.ui.chargers.adapter
 
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ergoen.databinding.LayoutChargerViewHolderBinding
-import com.example.ergoen.domain.model.Charger
+import com.example.ergoen.ui.chargers.ChargersListUiContract.ChargerViewState
 
 class ChargersViewHolder(
     private val binding: LayoutChargerViewHolderBinding,
@@ -16,7 +18,11 @@ class ChargersViewHolder(
         }
     }
 
-    fun bind(charger: Charger) {
-        //binding.tvLocation.text = getCoordString(item.lat, item.lon)
+    fun bind(charger: ChargerViewState) {
+        with(binding) {
+            textChargersTitle.text =  charger.distance.toString()
+            textChargersKw.visibility = if (charger.kwLabelEnabled) VISIBLE else GONE
+            textChargersDistance.visibility = if (charger.distanceLabelEnabled) VISIBLE else GONE
+        }
     }
 }
