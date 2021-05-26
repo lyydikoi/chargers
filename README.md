@@ -27,4 +27,4 @@
 * In Android Studio, use "Import Project" option. Next select the app directory that you downloaded from this repository. If prompted for a gradle configuration accept the default settings.
 * Alternatively use the "gradlew build" command to build the project directly.
 
-### Repo owner: Sergei Kasianov (lyydikoi@gmail.com)###
+### Repo owner: Sergei Kasianov (lyydikoi@gmail.com)
